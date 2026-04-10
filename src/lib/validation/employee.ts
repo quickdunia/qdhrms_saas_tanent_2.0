@@ -1,0 +1,48 @@
+import { EmploymentStatus, EmploymentType } from "@prisma/client";
+import { z } from "zod";
+
+import {
+  optionalEmailSchema,
+  optionalTextSchema,
+  safeRedirectSchema,
+} from "@/lib/validation/shared";
+
+export const createEmployeeSchema = z.object({
+  tenantSlug: z.string().trim().min(1),
+  userAccountId: optionalTextSchema,
+  collegeId: optionalTextSchema,
+  branchId: z.string().trim().min(1, "Select a branch or campus."),
+  departmentId: z.string().trim().min(1, "Select a department."),
+  managerId: optionalTextSchema,
+  employeeCode: z.string().trim().min(2, "Employee code is required."),
+  firstName: z.string().trim().min(2, "First name is required."),
+  lastName: optionalTextSchema,
+  workEmail: optionalEmailSchema,
+  personalEmail: optionalEmailSchema,
+  phone: optionalTextSchema,
+  alternatePhone: optionalTextSchema,
+  dateOfBirth: optionalTextSchema,
+  gender: optionalTextSchema,
+  maritalStatus: optionalTextSchema,
+  bloodGroup: optionalTextSchema,
+  nationality: optionalTextSchema,
+  currentAddress: optionalTextSchema,
+  permanentAddress: optionalTextSchema,
+  emergencyContactName: optionalTextSchema,
+  emergencyContactPhone: optionalTextSchema,
+  jobTitle: z.string().trim().min(2, "Job title is required."),
+  designation: optionalTextSchema,
+  employmentType: z.nativeEnum(EmploymentType),
+  status: z.nativeEnum(EmploymentStatus),
+  joinDate: z.string().trim().min(1, "Join date is required."),
+  confirmationDate: optionalTextSchema,
+  qualificationSummary: optionalTextSchema,
+  experienceSummary: optionalTextSchema,
+  salary: optionalTextSchema,
+  salaryStructureId: optionalTextSchema,
+  bankAccountName: optionalTextSchema,
+  bankAccountNumber: optionalTextSchema,
+  bankIfscCode: optionalTextSchema,
+  bonusEligible: optionalTextSchema,
+  redirectTo: safeRedirectSchema,
+});

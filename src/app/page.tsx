@@ -1,101 +1,149 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Building2,
+  Fingerprint,
+  LayoutDashboard,
+  ShieldCheck,
+  Users,
+  Waypoints,
+} from "lucide-react";
 
-export default function Home() {
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
+import { getServerEnv } from "@/lib/env";
+
+const featureCards = [
+  {
+    title: "True tenant isolation",
+    description:
+      "Every workspace, user, branch, department, and employee record is isolated through tenant-aware database design and guarded server-side access.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Organization hierarchy",
+    description:
+      "Model large institutions and distributed enterprises with unlimited colleges, units, branches, campuses, and departments.",
+    icon: Waypoints,
+  },
+  {
+    title: "Premium dashboards",
+    description:
+      "Responsive layouts, collapsible navigation, searchable data views, and polished enterprise-ready interactions across every screen size.",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Secure authentication",
+    description:
+      "Password creation and resets through OTP, JWT-backed sessions, failed login controls, audit trails, device history, and session management.",
+    icon: Fingerprint,
+  },
+];
+
+export default function HomePage() {
+  const env = getServerEnv();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.14),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(245,158,11,0.16),_transparent_26%),linear-gradient(180deg,_#f8fafc_0%,_#ffffff_100%)]">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.03)_1px,_transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,_transparent_1px)] bg-[size:36px_36px]" />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <section className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-10 lg:px-10">
+        <header className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
+              <Building2 className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-950">{APP_NAME}</p>
+              <p className="text-sm text-slate-500">Multi-tenant HRMS SaaS platform</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild size="sm" variant="outline">
+              <Link href="/auth/create-password">Create password</Link>
+            </Button>
+            <Button asChild size="sm" variant="brand">
+              <Link href="/auth/login">Access dashboard</Link>
+            </Button>
+          </div>
+        </header>
+
+        <div className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="animate-fade-up">
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 shadow-sm">
+              Production-ready Next.js 14 + Prisma 5 foundation
+            </div>
+            <h1 className="mt-8 max-w-4xl text-5xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-6xl">
+              Build and operate a premium HRMS SaaS for multi-campus and multi-unit organizations.
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{APP_DESCRIPTION}</p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button asChild size="lg" variant="brand">
+                <Link href="/auth/login">
+                  Launch platform
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="secondary">
+                <Link href="/auth/forgot-password">Recover account access</Link>
+              </Button>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-500">
+              <span className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-[var(--brand)]" />
+                Super admin email from env: {env.SUPER_ADMIN_EMAIL}
+              </span>
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-[var(--brand)]" />
+                OTP-based password setup and reset
+              </span>
+            </div>
+          </div>
+
+          <div className="animate-fade-in">
+            <Card className="overflow-hidden border-slate-200/80 bg-slate-950 text-white">
+              <CardHeader>
+                <CardTitle className="text-white">Platform highlights</CardTitle>
+                <CardDescription className="text-slate-300">
+                  Designed for colleges, institutions, companies, hospitals, and organization groups.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-4">
+                {[
+                  "SaaS super admin with tenant provisioning and subscription control",
+                  "Tenant branding with logo, theme color, profile, and regional settings",
+                  "Role-based dashboards with secure session management and audit visibility",
+                  "Real MySQL-backed hierarchy from tenant to department to employee",
+                ].map((item) => (
+                  <div
+                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-slate-200"
+                    key={item}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <section className="grid gap-6 pb-12 md:grid-cols-2 xl:grid-cols-4">
+          {featureCards.map(({ title, description, icon: Icon }) => (
+            <Card className="animate-fade-up" key={title}>
+              <CardHeader>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <CardTitle className="pt-2">{title}</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <CardDescription>{description}</CardDescription>
+              </CardContent>
+            </Card>
+          ))}
+        </section>
+      </section>
+    </main>
   );
 }
